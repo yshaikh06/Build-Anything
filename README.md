@@ -40,6 +40,8 @@ It is important to know what a workflow even is. A workflow is a model that comp
 
 This model will be run locally through Docker. To set up, follow these commands and make sure to have Docker installed on your machine.
 
+## How to run:
+
 Create your Docker volume
 
     docker volume create n8n_data

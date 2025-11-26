@@ -53,3 +53,7 @@ Next, lets run n8n in Docker
     -e N8N_SECURE_COOKIE=false
     docker.n8n.io/n8nio/n8n
 
+You can access the n8n interface here: http://localhost:5678/
+
+Now that we have it running, its time to start building our nodes. Our model needs to begin with a webhook node in order for it to allow an HTTP POST request.  Select the POST HTTP Method within the node and customize the Path (ex. rent-criteria). This node acts as our entry point for the entire model, without these key components, we won't be able to build off of this node.  The inside of the node should look similar to this:
+

@@ -1,6 +1,6 @@
 ## Manager Email
 
-**Subject:** New Lease Rate Protocol  
+**Subject:** New Property Search Protocol
 **From:** Chief Leasing Officer  
 **To:** Leasing Agent – Charlottesville, VA (ZIP 22903)  
 **Date:** August 24, 2025  

@@ -37,10 +37,9 @@ What are we building? **An n8n Agent Workflow**
 
 It is important to know what a workflow even is. A workflow is a model that completes a certain task(s) through building blocks called nodes. The model automoates these tasks through these nodes that are built off of eachother. For example, in our case, we will provide some inputs, search based on those inputs, and output something all from writing three parameters. Think of this as a linear model, Input -> Doing something with the input -> Output. These models can be as long or as short as the task requires them to be, for our purposes, reference the model below to see the ideal representation!
 
+## How to run:
 
 This model will be run locally through Docker. To set up, follow these commands and make sure to have Docker installed on your machine.
-
-## How to run:
 
 Create your Docker volume
 

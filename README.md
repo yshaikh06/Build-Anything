@@ -1,22 +1,31 @@
 ## Manager Email
-**Subject:** New Lease Rate Protocol
-**From:** Chief Leasing Officer 
-**To:** Leasing Agent - Charlottesville, VA ZIP: 22903
-**Date:** August 24 2025
+
+**Subject:** New Lease Rate Protocol  
+**From:** Chief Leasing Officer  
+**To:** Leasing Agent – Charlottesville, VA (ZIP 22903)  
+**Date:** August 24, 2025  
 
 Good Afternoon,
 
-We thank you for all your hard work as head of our leasing department in Charlottesville, Virginia! Before the rush for housing begins, we need a much more effective way of comparing rates with other rental properties in the area to allow all of our rental units to be filled to maximize profits. Given the University of Virginia (UVA) community, this market is already competetive, so we need to figure these rates out quickly! In order to effectively determine our own rates, we need you to build an n8n Agent Workflow that takes an input in the form of "X bedrooms, X bathrooms, XXXX dollars" which correlates to desired bedorom count, desired bathroom count, and maxmimum rent the user is willing to pay. The goal of the workflow should be to send an email (preferably Gmail) to the user with a list of rentals meeting the criteria listed above with their distance to the University of Virginia's School of Data Science (Our reference point). Below is a quick breakdown of what is *required* within the nodes of the workflow.
+Thank you for all your hard work as the head of our leasing department in Charlottesville, Virginia. Before the rush for housing begins, we need a more effective method for comparing rates with other rental properties in the area. This will allow prospective tenants to have a smoother experience when searching for their future homes.
 
-*Webhook to accept input parameters listed
-*A quick gemini search for the input parameters and relevant information
-*Email send with information in table format.
-  *If parameters are missing/not recognizable, send an email saying so
+Given the University of Virginia (UVA) community, the local housing market is already competitive, so we need this workflow completed quickly.
 
+To accomplish this, you are responsible for building an **n8n Agent Workflow** that accepts input in the form of:
 
-Goodluck! I hope to see your model up and running soon, we need to get these listings up ASAP! 
+> **“X bedrooms, X bathrooms, XXXX dollars”**  
+> *(representing bedroom count, bathroom count, and maximum rent)*
 
-Thank you,
-YS 
+The goal of the workflow is to send an email (preferably via Gmail) to the user containing a list of rentals that meet the criteria above, along with each property’s **distance to the University of Virginia’s School of Data Science** (our reference point).
 
+### Required Workflow Components
+- **Webhook** to accept the input parameters  
+- **Gemini search** to gather listings and relevant information  
+- **Email send** with results in **table format**  
+  - If parameters are missing or unrecognizable, send an email informing the user
 
+Good luck! We hope to see your model up and running soon as we need these listings live as soon as possible.
+
+Thank you,  
+
+**YS**

@@ -59,5 +59,5 @@ Now that we have it running, its time to start building our nodes. Our model nee
 
 Select the POST HTTP Method within the node and customize the Path (ex. rent-criteria). This node acts as our entry point for the entire model, without these key components, we won't be able to build off of this node.  
 
-The inside of the node should look similar to this:
+The configuration of the node should look similar to this:
 

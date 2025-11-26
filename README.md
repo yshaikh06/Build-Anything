@@ -29,3 +29,26 @@ Good luck! We hope to see your model up and running soon as we need these listin
 Thank you,  
 
 **YS**
+
+
+## Core Concepts:
+
+What are we building? **An n8n Agent Workflow**
+
+It is important to know what a workflow even is. A workflow is a model that completes a certain task(s) through building blocks called nodes. The model automoates these tasks through these nodes that are built off of eachother. For example, in our case, we will provide some inputs, search based on those inputs, and output something all from writing three parameters. Think of this as a linear model, Input -> Doing something with the input -> Output. These models can be as long or as short as the task requires them to be, for our purposes, reference the model below to see the ideal representation!
+
+
+This model will be run locally through Docker. To set up, follow these commands and make sure to have Docker installed on your machine.
+
+Create your Docker volume
+
+    docker volume create n8n_data
+
+Next, lets run n8n in Docker
+     
+    docker run -it --rm --name n8n \
+    -p 5678:5678 \
+    -v n8n_data:/home/node/.n8n \
+    -e N8N_SECURE_COOKIE=false
+    docker.n8n.io/n8nio/n8n
+

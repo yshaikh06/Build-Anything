@@ -26,7 +26,7 @@ The goal of the workflow is to send an email (preferably via Gmail) to the user 
 
 Good luck! We hope to see your model up and running soon as we need these listings live as soon as possible.
 
-![My Test Image](testing_20folder/testss.png)
+![My Test Image](testing_folder/testss.png)
 
 
 Thank you,  

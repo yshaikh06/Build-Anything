@@ -77,7 +77,8 @@ Example:
 
 Once this node is complete and running, we need to make sure we get our desired output from messaging the model. This means that if we are missing input parameters, we need to be aware and the email not be sent, and if we have ann necessary information and our message a model node runs smoothly, we need to be emailed the result. To do this, we need to create an IF node, and like it sounds, it uses an input to determine what to do.  
 
-In this specific project, we first need to have Gemini output a consistent message if something goes wrong, for example "Please provide ALL inputs". Now, in the IF node, it use Gemini's output to determine if it is suitable for an email.  
+In this specific project, we first need to have Gemini output a consistent message if something goes wrong, for example "Please provide ALL inputs". Now, in the IF node, it use Gemini's output to determine if it is suitable for an email. 
+
 Now before we work on the email setup, we need to deal with our IF node returning false (input parameters are wrong/missing). For this, create a Respond to Webhook node and pass a custom **TEXT** Expression. Becuase we are basing this node off of the previous one, we need to reference the IF node using some message.  
 
 Example)

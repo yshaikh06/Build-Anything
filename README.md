@@ -42,6 +42,7 @@ It is important to know what a workflow even is. A workflow is a model that comp
 
 ## How to run:
 
+### Step 1)  
 This model will be run locally through Docker. To set up, follow these commands and make sure to have Docker installed on your machine.
 
 Create your Docker volume
@@ -57,7 +58,7 @@ Next, lets run n8n in Docker
     docker.n8n.io/n8nio/n8n
 
 You can access the n8n interface here: http://localhost:5678/
-
+### Step 2)
 Now that we have it running, its time to start building our nodes. Our model needs to begin with a webhook node in order for it to allow an HTTP POST request. 
 
 Select the POST HTTP Method within the node and set the "Respond" dropdown to "Using Respond to Webhook Node". Also customize the Path (ex. rent-criteria). This node acts as our entry point for the entire model, without these key components, we won't be able to build off of this node.  
@@ -66,6 +67,7 @@ The configuration of the node should look similar to this:
 
 ![Webhook Configuration](assets/webhook_img.png)
 
+### Step 3)
 Now its time to call the LLM model in order to perform our search. Add another node, this time a "Message a model" node through Google Gemini. This part will require some additional API enabling.  
 
 The ones we need for this project are Gemini's API and Gmail's API. You can enable the specific API's that are needed here: https://console.cloud.google.com/  
@@ -85,12 +87,13 @@ Here is what the inside of the node should look like:
 
 ![Message A Model](assets/message_a_model_img.png)
 
+### Step 4)
 Once this node is complete and running, we need to make sure we get our desired output from messaging the model. This means that if we are missing input parameters, we need to be aware and the email not be sent, and if we have all necessary information and our "Message a Model" node runs smoothly, we need to be emailed the result. To do this, we need to create an IF node, and like it sounds, it uses an input to determine what to do.  
 
 In this specific project, we first need to have Gemini output a consistent message if something goes wrong, for example "Please provide ALL inputs". Now, in the IF node, it uses Gemini's output to determine if it is suitable for an email. 
 
 ![If Node](assets/if_node_img.png)
-
+### Step 5)
 Now before we work on the email setup, we need to deal with our IF node returning false (input parameters are wrong/missing). For this, create a "Respond to Webhook" node and pass a custom **TEXT EXPRESSION**. Becuase we are basing this node off of the previous one, we need to reference the IF node using the output Gemini produces when an input parameter is missing. Paste this below into the **EXPRESSION** input box. When being tested, one of the following messages will display based on the IF node's success in sending an email or failure in receiving all inputs.
 
     {{ 
@@ -103,11 +106,11 @@ Now before we work on the email setup, we need to deal with our IF node returnin
 See the configuration of the node below:
 
 ![Respond To Webhook](assets/respond_to_webhook_img.png)
-
+### Quick Break/Check your workflow!
 As of now, the workflow should look something like this:
 
 ![Workflow Without Gmail](assets/workflow_without_gmail_img.png)
-
+### Step 6)
 Lastly, we need our Gmail node to complete the process and send an email based on the search results! As with the "Message a Model" an API needs to be enabled for this and a set of credentials need to be created. Further, permissions need to be give to Gmail in order for it to authorize email sending. Just keep all of this in mind before proceeding and circling back and forth if you get errors. Fill in the relevant fields and for the actual body of the email, we simply want everything that Gemini outputs to us. And if you remember from before, that means referencing a previous node ("Message a Model"), like so:
 
     Here is a list of rentals that meet your search criteria:
@@ -116,7 +119,11 @@ Lastly, we need our Gmail node to complete the process and send an email based o
 
 ![Gmail Node](assets/gmail_node_img.png)
 
+## **IMPORTANT**
+Make sure the **IF** node and **Gmail** node **BOTH** connect to the **"Respond to Webhook"** (see below). Without both of these properly connected back to the "Respond to Webhook" node, you will receieve errors. 
+![Entire Workflow](assets/entire_workflow_img.png)
+
 
 A sample output if all runs smoothly may look like this:
 ![Sample Output](assets/sample_output_img.png)
-
+### Conclusions/Troubleshooting

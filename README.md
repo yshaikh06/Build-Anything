@@ -123,7 +123,7 @@ Lastly, we need our Gmail node to complete the process and send an email based o
 Make sure the **IF** node and **Gmail** node **BOTH** connect to the **"Respond to Webhook"** (see below). Without both of these properly connected back to the "Respond to Webhook" node, you will receieve errors. 
 ![Entire Workflow](assets/entire_workflow_img.png)
 
-###Step 7) TESTING TIME!
+### Step 7) TESTING TIME!
 
 In order to test the workflow is running, save all work/edits done to the workflow and go to the initial "Webhook" node. In the node, you'll see a tab for "Test url" and "Production url", copy the production url for our curl command.  
 

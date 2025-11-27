@@ -85,7 +85,7 @@ Here is what the inside of the node should look like:
 
 ![Message A Model](assets/message_a_model_img.png)
 
-Once this node is complete and running, we need to make sure we get our desired output from messaging the model. This means that if we are missing input parameters, we need to be aware and the email not be sent, and if we have any necessary information and our "Message a Model" node runs smoothly, we need to be emailed the result. To do this, we need to create an IF node, and like it sounds, it uses an input to determine what to do.  
+Once this node is complete and running, we need to make sure we get our desired output from messaging the model. This means that if we are missing input parameters, we need to be aware and the email not be sent, and if we have all necessary information and our "Message a Model" node runs smoothly, we need to be emailed the result. To do this, we need to create an IF node, and like it sounds, it uses an input to determine what to do.  
 
 In this specific project, we first need to have Gemini output a consistent message if something goes wrong, for example "Please provide ALL inputs". Now, in the IF node, it uses Gemini's output to determine if it is suitable for an email. 
 

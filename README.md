@@ -125,7 +125,11 @@ Make sure the **IF** node and **Gmail** node **BOTH** connect to the **"Respond 
 
 ###Step 7) TESTING TIME!
 
-In order to test the workflow is running, save all work/edits done to the workflow and go to the initial "Webhook" node. In the node, you'll see a tab for "Test url" and "Production url", copy the production url for our curl command. Keep in mind, the link following POST may be different according to what Path you specifieid, for my purposes I stuck with a Path of "rend-criteria", therefore my link ends with that, but it may very well be different! This command should produce a "Success" result along with an email to your inbox with rental information. If you get an error stating something along the lines of "Problem with workflow" or "Error in workflow", check the Executions tab in your workflow to see exactly where the errors occured. With that, you can double check the configuration of the node that caused the error alongside the configurations provided. 
+In order to test the workflow is running, save all work/edits done to the workflow and go to the initial "Webhook" node. In the node, you'll see a tab for "Test url" and "Production url", copy the production url for our curl command.  
+
+![Production URL](assets/production_url_img.png)
+
+Keep in mind, the link following POST may be different according to what Path you specifieid, for my purposes I stuck with a Path of "rend-criteria", therefore my link ends with that, but it may very well be different! This command should produce a "Success" result along with an email to your inbox with rental information. If you get an error stating something along the lines of "Problem with workflow" or "Error in workflow", check the Executions tab in your workflow to see exactly where the errors occured. With that, you can double check the configuration of the node that caused the error alongside the configurations provided. 
 
 Windows Friendly:
 

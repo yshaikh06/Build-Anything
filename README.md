@@ -123,7 +123,19 @@ Lastly, we need our Gmail node to complete the process and send an email based o
 Make sure the **IF** node and **Gmail** node **BOTH** connect to the **"Respond to Webhook"** (see below). Without both of these properly connected back to the "Respond to Webhook" node, you will receieve errors. 
 ![Entire Workflow](assets/entire_workflow_img.png)
 
+###Step 7) TESTING TIME!
+
+In order to test the workflow is running, save all work/edits done to the workflow and go to the initial "Webhook" node. In the node, you'll see a tab for "Test url" and "Production url", copy the production url for our curl command. Keep in mind, the link following POST may be different according to what Path you specifieid, for my purposes I stuck with a Path of "rend-criteria", therefore my link ends with that, but it may very well be different! This command should produce a "Success" result along with an email to your inbox with rental information. If you get an error stating something along the lines of "Problem with workflow" or "Error in workflow", check the Executions tab in your workflow to see exactly where the errors occured. With that, you can double check the configuration of the node that caused the error alongside the configurations provided. 
+
+Windows Friendly:
+
+      curl.exe -X POST "http://localhost:5678/webhook/rent-criteria" -H "Content-Type: application/x-www-form-urlencoded" -d "body=3 bedrooms, 3 bathrooms, 2700 dollars"
+
+Linux Friendly:
+
+      curl -X POST "http://localhost:5678/webhook/rent-criteria" -H "Content-Type: application/x-www-form-urlencoded" -d "body=3 bedrooms, 3 bathrooms, 2700 dollars"
 
 A sample output if all runs smoothly may look like this:
 ![Sample Output](assets/sample_output_img.png)
-### Conclusions/Troubleshooting
+
+

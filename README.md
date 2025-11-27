@@ -142,4 +142,6 @@ Linux Friendly:
 A sample output if all runs smoothly may look like this:
 ![Sample Output](assets/sample_output_img.png)
 
+### Conclusions/Final Thoughts
 
+As we have stated, workflows can be very complex or as simple as they need to. This project showed us that a small workflow can accomplish quite a lot and automate very important things for us. In regard to the environment overall, I encourage you to explore more with different nodes and see what kind of projects you can make! There are many different tools and automation techniques that can be done.

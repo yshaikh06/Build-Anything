@@ -142,6 +142,26 @@ Linux Friendly:
 A sample output if all runs smoothly may look like this:
 ![Sample Output](assets/sample_output_img.png)
 
+### Step 8) VERY ENCOURAGED BUT NOT REQUIRED (just try it!)
+
+Our model is now running locally but there is an extra step to go completely public, and that is to deploy it to the cloud. With a few simple commands, we can do this. Here is the one line needed to be pasted. Change the various instances to match your name and label preferences.
+
+    az container create -g n8n-rg -n n8n-agent --image n8nio/n8n:latest --os-type Linux --cpu 1 --memory 2 --ports 5678 --dns-name-label n8n-agent-yusuf --ip-address Public --environment-      variables N8N_HOST=0.0.0.0 N8N_PORT=5678 N8N_PROTOCOL=https
+
+    OR (in a list version)
+
+    az container create -g n8n-rg -n n8n-agent `
+    --image n8nio/n8n:latest `
+    --os-type Linux `
+    --cpu 1 `
+    --memory 2 `
+    --ports 5678 `
+    --dns-name-label n8n-agent-yusuf `
+    --ip-address Public `
+    --environment-variables N8N_HOST=0.0.0.0 N8N_PORT=5678 N8N_PROTOCOL=https
+
+Doing this allows the model to be accessible publicly instead of just locally! Congratulations! 
+
 ### Conclusions/Final Thoughts
 
 As we have stated, workflows can be very complex or as simple as they need to. This project showed us that a small workflow can accomplish quite a lot and automate very important things for us. In regard to the environment overall, I encourage you to explore more with different nodes and see what kind of projects you can make! There are many different tools and automation techniques that can be done.

@@ -73,3 +73,5 @@ Example:
     Im going to give you three inputs: Bedroom count, Bathroom count, MAX rent amount.
     HERE ARE THE INPUTS: {{ $json.body.body }}
     etc...
+
+Once this node is complete and running, 

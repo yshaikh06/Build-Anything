@@ -201,3 +201,4 @@ The workflow worked as planned and outputted all the necessary information reque
 (show sample outputs)
 # Section 6)  
 ## What's Next?
+This model could be much more improved like any workflow, however, given the access to certain tools, we had to work with was available. The model could rely less heavily on an LLM and more on other third party sources using API keys (as noted earlier). Further, incorporating a better formatted email with an overall nicer organization would be ideal!

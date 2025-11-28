@@ -30,8 +30,8 @@ Thank you,
 
 **YS**
 
-# Section 2)
-## Core Concepts:
+
+# 2) Core Concepts:
 
 What are we building? **An n8n Agent Workflow**
 
@@ -39,8 +39,8 @@ It is important to know what a workflow even is. A workflow is a model that comp
 
 ![Entire Workflow](assets/entire_workflow_img.png)
 
-# Section 3)
-## How to run:
+
+# 3) How to run:
 
 ### Step 1)  
 
@@ -186,9 +186,8 @@ The one caveat to this is that you will need to import your locally done project
 
 As we have stated, workflows can be very complex or as simple as they need to. This project showed us that a small workflow can accomplish quite a lot and automate very important things for us. In regard to the environment overall, I encourage you to explore more with different nodes and see what kind of projects you can make! There are many different tools and automation techniques that can be done.
 
-# Section 4)  
 
-## Design Decisions
+# 4) Design Decisions
 #### Why this concept?
 Out of the concepts learned, a simple n8n automation workflow made the most sense due to only requiring one command to accomplish the task at hand. Other applications/pipelines could have worked, but they would have been more tedious and may have had more potential for errors.  
 
@@ -198,11 +197,11 @@ Although this project is free, it comes with limitations in certain tasks that c
 #### Security/Privacy
 Within the model, the credentials required were all stored securely in b8b's built in system. They were stored OUTSIDE of the workflow as separate entities that were used within the workflow. Secondly, for this specific project, input validation came with the previous nodes ensuring that the fields were completed and what were needed to proceed in the workflow. Lastly, no personal data was stored. When running the single command to produce the search, only generic public data is used.  
 
-# Section 5)  
 
-## Results and Evaluation
+# 5) Results and Evaluation
 The workflow worked as planned and outputted all the necessary information requested! It took a little while to figure out how to properly restrict emails being sent based on an actual output or not, but in the end, the model will NOT send an email if there are missing inputs. 
-(show sample outputs)
-# Section 6)  
-## What's Next?
+(show sample outputs)  
+
+ 
+# 6) What's Next?
 This model could be much more improved like any workflow, however, given the access to certain tools, we had to work with was available. The model could rely less heavily on an LLM and more on other third party sources using API keys (as noted earlier). Further, incorporating a better formatted email with an overall nicer organization would be ideal!

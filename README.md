@@ -30,7 +30,7 @@ Thank you,
 
 **YS**
 
-
+# Section 2)
 ## Core Concepts:
 
 What are we building? **An n8n Agent Workflow**
@@ -39,10 +39,11 @@ It is important to know what a workflow even is. A workflow is a model that comp
 
 ![Entire Workflow](assets/entire_workflow_img.png)
 
-
+# Section 3)
 ## How to run:
 
 ### Step 1)  
+
 This model will be run locally through Docker. To set up, follow these commands and make sure to have Docker installed on your machine.
 
 Create your Docker volume
@@ -58,7 +59,8 @@ Next, lets run n8n in Docker
     docker.n8n.io/n8nio/n8n
 
 You can access the n8n interface here: http://localhost:5678/
-### Step 2)
+### Step 2)  
+
 Now that we have it running, its time to start building our nodes. Our model needs to begin with a webhook node in order for it to allow an HTTP POST request. 
 
 Select the POST HTTP Method within the node and set the "Respond" dropdown to "Using Respond to Webhook Node". Also customize the Path (ex. rent-criteria). This node acts as our entry point for the entire model, without these key components, we won't be able to build off of this node.  
@@ -146,7 +148,7 @@ A sample output if all runs smoothly may look like this:
 
 Our model is now running locally but there is an extra step to go completely public, and that is to deploy it to the cloud. With a few simple commands, we can do this. Here is the one line needed to be pasted. Change the various instances to match your name and label preferences.
 
-    az container create -g n8n-rg -n n8n-agent --image n8nio/n8n --os-type Linux --cpu 1 --memory 2 --ip-address Public --ports 5678 --dns-name-label n8n-agent-yusuf --environment-             variables N8N_HOST=n8n-agent-yusuf.northcentralus.azurecontainer.io N8N_PORT=5678 N8N_PROTOCOL=http N8N_SECURE_COOKIE=false
+    az container create -g n8n-rg -n n8n-agent --image n8nio/n8n --os-type Linux --cpu 1 --memory 2 --ip-address Public --ports 5678 -     dns-name-label n8n-agent-yusuf --environment- variables N8N_HOST=n8n-agent-yusuf.northcentralus.azurecontainer.io N8N_PORT=5678        N8N_PROTOCOL=http N8N_SECURE_COOKIE=false
 
     
 OR (in a list version)
@@ -179,3 +181,23 @@ The one caveat to this is that you will need to import your locally done project
 ### Conclusions/Final Thoughts
 
 As we have stated, workflows can be very complex or as simple as they need to. This project showed us that a small workflow can accomplish quite a lot and automate very important things for us. In regard to the environment overall, I encourage you to explore more with different nodes and see what kind of projects you can make! There are many different tools and automation techniques that can be done.
+
+# Section 4)  
+
+## Design Decisions
+#### Why this concept?
+Out of the concepts learned, a simple n8n automation workflow made the most sense due to only requiring one command to accomplish the task at hand. Other applications/pipelines could have worked, but they would have been more tedious and may have had more potential for errors.  
+
+#### Tradeoffs/Known Limitations
+Although this project is free, it comes with limitations in certain tasks that can be performed. One drawback was that there was no direct link ti Zillow/Redfin for this projeect, therefore the entirety of the search came from Google Gemini which may produce invalid results. Certain advanced abilities are also limited within the free version of n8n which posed a slight issue within this model and referencing previous nodes, however, there were ways to work around it but they required a few extra steps and research. Further, having cloud deployment is only able to be run for a certain amount of time before the $100 credit is used under the Azure for Students account. Once the credit is used, the cloud deployment is unable to continue. One last drawback is the restrictions of using Gemini for too many searches. Gemini only has a limited amount of alotted searches for their free plan, so once that is used up for the day, the model will no longer run and get stuck at the "Message a Model" node.
+
+#### Security/Privacy
+Within the model, the credentials required were all stored securely in b8b's built in system. They were stored OUTSIDE of the workflow as separate entities that were used within the workflow. Secondly, for this specific project, input validation came with the previous nodes ensuring that the fields were completed and what were needed to proceed in the workflow. Lastly, no personal data was stored. When running the single command to produce the search, only generic public data is used.  
+
+# Section 5)  
+
+## Results and Evaluation
+The workflow worked as planned and outputted all the necessary information requested! It took a little while to figure out how to properly restrict emails being sent based on an actual output or not, but in the end, the model will NOT send an email if there are missing inputs. 
+(show sample outputs)
+# Section 6)  
+## What's Next?

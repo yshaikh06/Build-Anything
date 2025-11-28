@@ -174,7 +174,7 @@ You can access the workflow from here:
 http://n8n-agent-yusuf.northcentralus.azurecontainer.io:5678
 (link may vary depending on your name/region upon azure deplorment)  
 
-The one caveat to this is that you will need to import your locally done project (Download it and file upload to the cloud). Secondly, you will need to reconfigure the API instances and establish valid credentials for the "Message a Model" node and Gmail node, but other than that, your workflow should be visibile to the public!
+The one caveat to this is that you will need to import your locally done project (Download it and file upload to the cloud). Secondly, you will need to reconfigure the API instances and establish valid credentials for the "Message a Model" node and Gmail node, but other than that, your workflow should be deployed to the cloud!
 
 ### Conclusions/Final Thoughts
 

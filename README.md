@@ -200,7 +200,15 @@ Within the model, the credentials required were all stored securely in b8b's bui
 
 # 5) Results and Evaluation
 The workflow worked as planned and outputted all the necessary information requested! It took a little while to figure out how to properly restrict emails being sent based on an actual output or not, but in the end, the model will NOT send an email if there are missing inputs. 
-(show sample outputs)  
+
+1 Bed 1 Bath $1700 MAX rent sample output:  
+
+![1 bed Sample Output](assets/1bed_1bath_1700_img.png)  
+
+2 Bed 2 Bath $2000 MAX rent sample output:  
+
+![2 bed Sample Output](assets/2bed_2bath_2000_img.png)  
+
 
  
 # 6) What's Next?

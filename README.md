@@ -152,7 +152,7 @@ A sample output if all runs smoothly may look like this:
 
 Our model is now running locally but there is an extra step to go completely public, and that is to deploy it to the cloud. With a few simple commands, we can do this. Here is the one line needed to be pasted. Change the various instances to match your name and label preferences.
 
-    az container create -g n8n-rg -n n8n-agent --image n8nio/n8n --os-type Linux --cpu 1 --memory 2 --ip-address Public --ports 5678 -     dns-name-label n8n-agent-yusuf --environment- variables N8N_HOST=n8n-agent-yusuf.northcentralus.azurecontainer.io N8N_PORT=5678        N8N_PROTOCOL=http N8N_SECURE_COOKIE=false
+    az container create -g n8n-rg -n n8n-agent --image n8nio/n8n --os-type Linux --cpu 1 --memory 2 --ip-address Public --ports 5678 -     dns-name-label n8n-agent-yusuf --environment- variables N8N_HOST=n8n-agent-    yusuf.northcentralus.azurecontainer.io N8N_PORT=5678        N8N_PROTOCOL=http N8N_SECURE_COOKIE=false
 
     
 OR (in a list version)

@@ -136,25 +136,13 @@ In order to test the workflow is running, save all work/edits done to the workfl
 
 ![Production URL](assets/production_url_img.png)
 
-Keep in mind, the link following POST may be different according to what Path you specifieid, for my purposes I stuck with a Path of "rend-criteria", therefore my link ends with that, but it may very well be different! This command should produce a "Success" result along with an email to your inbox with rental information. If you get an error stating something along the lines of "Problem with workflow" or "Error in workflow", check the Executions tab in your workflow to see exactly where the errors occured. With that, you can double check the configuration of the node that caused the error alongside the configurations provided. 
+Keep in mind, the link following POST may be different according to what Path you specifieid, for my purposes I stuck with a Path of "rend-criteria", therefore my link ends with that, but it may very well be different! This command should produce a "Success" result along with an email to your inbox with rental information. If you get an error stating something along the lines of "Problem with workflow" or "Error in workflow", check the Executions tab in your workflow to see exactly where the errors occured. With that, you can double check the configuration of the node that caused the error alongside the configurations provided.  
 
-Windows Friendly:
-
-      curl.exe -X POST "http://localhost:5678/webhook/rent-criteria" -H "Content-Type: application/x-www-form-urlencoded" -d "body=3 bedrooms, 3 bathrooms, 2700 dollars"
-
-Linux Friendly:
-
-      curl -X POST "http://localhost:5678/webhook/rent-criteria" -H "Content-Type: application/x-www-form-urlencoded" -d "body=3 bedrooms, 3 bathrooms, 2700 dollars"
-
-A sample output if all runs smoothly may look like this:  
-
-![Sample Output](assets/sample_output_img.png)
-
-### Step 8) VERY ENCOURAGED BUT NOT REQUIRED (just try it!)
+### Step 8) Frontend!
 
 Our model is now running locally but there is an extra step to go completely public, and that is to deploy it to the cloud. With a few simple commands, we can do this. Here is the one line needed to be pasted. Change the various instances to match your name and label preferences.
 
-    az container create -g n8n-rg -n n8n-agent --image n8nio/n8n --os-type Linux --cpu 1 --memory 2 --ip-address Public --ports 5678 -     dns-name-label n8n-agent-yusuf --environment- variables N8N_HOST=n8n-agent-    yusuf.northcentralus.azurecontainer.io N8N_PORT=5678        N8N_PROTOCOL=http N8N_SECURE_COOKIE=false
+    az container create -g n8n-rg -n n8n-agent --image docker.n8n.io/n8nio/n8n --ports 5678 --dns-name-label n8n-agent-yusuf --os-type Linux --cpu 1 --memory 2 --environment-variables N8N_HOST=n8n-agent-                                      yusuf.northcentralus.azurecontainer.io N8N_PORT=5678 N8N_PROTOCOL=https
 
     
 OR (in a list version)
@@ -182,7 +170,9 @@ You can access the workflow from here:
 http://n8n-agent-yusuf.northcentralus.azurecontainer.io:5678
 (link may vary depending on your name/region upon azure deplorment)  
 
-The one caveat to this is that you will need to import your locally done project (Download it and file upload to the cloud). Secondly, you will need to reconfigure the API instances and establish valid credentials for the "Message a Model" node and Gmail node, but other than that, your workflow should be deployed to the cloud!
+If you notice your workflow is not present, double check that you created a volume within Azure (not just Docker). This is a common issue but once its created, you'll see it!  
+
+Now it's time to create the form that users will fill out that the workflow will run through using the parametrs.
 
 ### Conclusions/Final Thoughts
 

@@ -11,18 +11,18 @@ Thank you for all your hard work as the head of our leasing department in Charlo
 
 Given the University of Virginia (UVA) community, the local housing market is already competitive, so we need this workflow completed quickly.
 
-To accomplish this, you are responsible for building an **n8n Agent Workflow** that accepts input in the form of:
+To accomplish this, you are responsible for building a backend **n8n Agent Workflow** that accepts input through a form:
 
-> **“X bedrooms, X bathrooms, XXXX dollars”**  
-> *(representing bedroom count, bathroom count, and maximum rent)*
+> **“X bedrooms, X bathrooms, XXXX dollars, Email"**  
+> *(representing bedroom count, bathroom count, maximum rent, and email recipient)*
 
-The goal of the workflow is to send an email (preferably via Gmail) to the user containing a list of rentals that meet the criteria listed, along with each property’s **distance to the University of Virginia’s School of Data Science** (our reference point).
+The goal of the workflow is to send an email (preferably via Gmail) to the user containing a list of rentals that meet the criteria they enter in the form.
 
 ### Required Workflow Components
 - **Webhook** to accept the input parameters  
-- **Gemini search** to gather listings and relevant information  
+- **Rental API search** to gather listings and relevant information
+- **AI Formatting**
 - **Email send** with results in **table format**  
-  - If parameters are missing or unrecognizable, send an email informing the user
 
 Good luck! We hope to see your model up and running soon as we need these listings live as soon as possible.
 
@@ -33,7 +33,7 @@ Thank you,
 
 # 2) Core Concepts:
 
-What are we building? **An n8n Agent Workflow**
+What are we building? **A user input form with an n8n backend**
 
 It is important to know what a workflow even is. A workflow is a model that completes a certain task(s) through building blocks called nodes. The model automoates these tasks through these nodes that are built off of eachother. For example, in our case, we will provide some inputs, search based on those inputs, and output something all from inputing three parameters. Think of this as a linear model, Input -> Doing something with the input -> Output. These models can be as long or as short as the task requires them to be, for our purposes, reference the model below to see the ideal representation!
 
@@ -63,14 +63,27 @@ You can access the n8n interface here: http://localhost:5678/
 
 Now that we have it running, its time to start building our nodes. Our model needs to begin with a webhook node in order for it to allow an HTTP POST request. 
 
-Select the POST HTTP Method within the node and set the "Respond" dropdown to "Using Respond to Webhook Node". Also customize the Path (ex. rent-criteria). This node acts as our entry point for the entire model, without these key components, we won't be able to build off of this node.  
+Select the POST HTTP Method within the node and customize the Path (ex. rent-criteria). This node acts as our entry point for the entire model, without these key components, we won't be able to build off of this node.  
 
 The configuration of the node should look similar to this:
 
 ![Webhook Configuration](assets/webhook_img.png)
 
-### Step 3)
-Now its time to call the LLM model in order to perform our search. Add another node, this time a "Message a model" node through Google Gemini. This part will require some additional API enabling.  
+### Step 3) 
+
+Now its time to perform our API search. For this project, we can use RentCast's free rental property API found on their website: https://developers.rentcast.io/reference/introduction. Make sure to select a plan and save the API key once created. We can configure the node to take in the Webhook's input parameters as well (specify them beforehand with bedroom count, bathroom count, max rent, and email). Also ensure that the location matches Charlottesville, Virginia. An easy way to do all of this is to click the "import cURL" option at the top of the node and import the cURL command that RentCast provides. See the node below:
+
+![API Config](assets/rentcast_img.png)
+
+### Step 4)
+
+To account for multiple searches being outputted, add an "aggregate" node that takes all items from the previous node and puts them into one. This will help Gemini understand how to format all listings and also make it so that only one email is sent.  
+
+![Aggregate Node](assets/aggregate_node_img.png)
+
+### Step 5)  
+
+Now its time to call the LLM model in order to format our search. Add another node, this time a "Message a model" node through Google Gemini. This part will require some additional API enabling.  
 
 The ones we need for this project are Gemini's API and Gmail's API. You can enable the specific API's that are needed here: https://console.cloud.google.com/  
 
@@ -78,41 +91,29 @@ Secondly, to establish an AI API key, visit https://aistudio.google.com/ , head 
 
 Make sure to configure proper credentials for when the "Message a Model" and "Gmail" nodes request valid credentials.
 
-Once these are enabled, now you can successfully create your Google Gemini node. Make sure the selected operation is "Message a Model". The other fields are to be filled in as well based on the search that *should* be performed to accomplish the overall task of the model. The prompt being input does require some information from the Webhook node for the actual search to be generated by Gemini through the parameters the user sends. To do this, paste {{ $json.body.body }} as the user inputs in the prompt field followed by the prompt for Gemini to follow.  
+Once these are enabled, now you can successfully create your Google Gemini node. Make sure the selected operation is "Message a Model". In the prompt field, add anything you like. I decided to format an email as if I was a leasing agent and told Gemini to format a nice email with the rental listings from our API search. It will format the listings into a table and provide a small introduction and closing with the listings.
 
 Example:
 
-    Im going to give you three inputs: Bedroom count, Bathroom count, MAX rent amount.
-    HERE ARE THE INPUTS: {{ $json.body.body }}
-    etc...
+    Add a friendly **opening sentence** introducing the list.
+    Below is raw rental-property search output:
+    {{ $json.toJsonString() }}
+
+    Your task:
+    1. Convert the results into a single **professional email**.
+    2. Format the properties in a **table** with columns such as:
+     - Address
+     - Bedrooms
+     - Bathrooms
+     - Rent
+     - Property Type
+    4. Make sure the email is concise, easy to scan, and well-structured.
+
+    Return ONLY the formatted email.
+
 Here is what the inside of the node should look like:  
 
-![Message A Model](assets/message_a_model_img.png)
-
-### Step 4)
-Once this node is complete and running, we need to make sure we get our desired output from messaging the model. This means that if we are missing input parameters, we need to be aware and the email not be sent, and if we have all necessary information and our "Message a Model" node runs smoothly, we need to be emailed the result. To do this, we need to create an IF node, and like it sounds, it uses an input to determine what to do.  
-
-In this specific project, we first need to have Gemini output a consistent message if something goes wrong, for example "Please provide ALL inputs". Now, in the IF node, it uses Gemini's output to determine if it is suitable for an email.  
-
-![If Node](assets/if_node_img.png)  
-
-### Step 5)
-Now before we work on the email setup, we need to deal with our IF node returning false (input parameters are wrong/missing). For this, create a "Respond to Webhook" node and pass a custom **TEXT EXPRESSION**. Becuase we are basing this node off of the previous one, we need to reference the IF node using the output Gemini produces when an input parameter is missing. Paste this below into the **EXPRESSION** input box. When being tested, one of the following messages will display based on the IF node's success in sending an email or failure in receiving all inputs.
-
-    {{ 
-    $node["Message a model"].json["content"]["parts"][0]["text"].includes("Please provide")
-    ? "ERROR: Please provide ALL required inputs (bedrooms, bathrooms, max rent)."
-    : "SUCCESS: Email sent successfully!"
-    }}
-
-
-See the configuration of the node below:  
-
-![Respond To Webhook](assets/respond_to_webhook_img.png)
-### Quick Break/Check your workflow!
-As of now, the workflow should look something like this:  
-
-![Workflow Without Gmail](assets/workflow_without_gmail_img.png)  
+![Message A Model](assets/message_a_model_img.png)  
 
 ### Step 6)
 Lastly, we need our Gmail node to complete the process and send an email based on the search results! As with the "Message a Model" an API needs to be enabled for this and a set of credentials need to be created. Further, permissions need to be give to Gmail in order for it to authorize email sending. Just keep all of this in mind before proceeding and circling back and forth if you get errors. Fill in the relevant fields and for the actual body of the email, we simply want everything that Gemini outputs to us. And if you remember from before, that means referencing a previous node ("Message a Model"), like so:
@@ -121,12 +122,13 @@ Lastly, we need our Gmail node to complete the process and send an email based o
     ---------------------------
     {{ $json.content.parts[0].text }}
 
+Further, if you would like to have a "Subject" line that references the webhook inputs, follow the configuration below!  
+
 ![Gmail Node](assets/gmail_node_img.png)  
 
-## **IMPORTANT**
-Make sure the **IF** node and **Gmail** node **BOTH** connect to the **"Respond to Webhook"** (see below). Without both of these properly connected back to the "Respond to Webhook" node, you will receieve errors.  
+Double check that your workflow looks like mine!  
 
-![Entire Workflow](assets/entire_workflow_img.png)
+![Entire Workflow](assets/entire_workflow.png) 
 
 ### Step 7) TESTING TIME!
 

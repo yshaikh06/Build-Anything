@@ -37,7 +37,7 @@ What are we building? **A user input form with an n8n backend**
 
 It is important to know what a workflow even is. A workflow is a model that completes a certain task(s) through building blocks called nodes. The model automoates these tasks through these nodes that are built off of eachother. For example, in our case, we will provide some inputs, search based on those inputs, and output something all from inputing three parameters. Think of this as a linear model, Input -> Doing something with the input -> Output. These models can be as long or as short as the task requires them to be, for our purposes, reference the model below to see the ideal representation!
 
-![Entire Workflow](assets/entire_workflow_img.png)
+![Entire Workflow](assets/entire_workflow.png)
 
 
 # 3) How to run:

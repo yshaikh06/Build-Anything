@@ -35,7 +35,7 @@ Thank you,
 
 What are we building? **A user input form with an n8n backend**
 
-It is important to know what a workflow even is. A workflow is a model that completes a certain task(s) through building blocks called nodes. The model automoates these tasks through these nodes that are built off of eachother. For example, in our case, we will provide some inputs, search based on those inputs, and output something all from inputing three parameters. Think of this as a linear model, Input -> Doing something with the input -> Output. These models can be as long or as short as the task requires them to be, for our purposes, reference the model below to see the ideal representation!
+It is important to know what a workflow even is. A workflow is a model that completes a certain task(s) through building blocks called nodes. The model automates these tasks through these nodes that are built off of each other. For example, in our case, we will provide some inputs, search based on those inputs, and output something all from entering three parameters. Think of this as a linear model, Input -> Doing something with the input -> Output. These models can be as long or as short as the task requires them to be, for our purposes, reference the model below to see the ideal representation!
 
 ![Entire Workflow](assets/entire_workflow.png)
 
@@ -61,7 +61,7 @@ Next, lets run n8n in Docker
 You can access the n8n interface here: http://localhost:5678/
 ### Step 2)  
 
-Now that we have it running, its time to start building our nodes. Our model needs to begin with a webhook node in order for it to allow an HTTP POST request. 
+Now that we have it running, it's time to start building our nodes. Our model needs to begin with a webhook node in order for it to allow an HTTP POST request. 
 
 Select the POST HTTP Method within the node and customize the Path (ex. rent-criteria). This node acts as our entry point for the entire model, without these key components, we won't be able to build off of this node.  
 
@@ -71,7 +71,7 @@ The configuration of the node should look similar to this:
 
 ### Step 3) 
 
-Now its time to perform our API search. For this project, we can use RentCast's free rental property API found on their website: https://developers.rentcast.io/reference/introduction. Make sure to select a plan and save the API key once created. We can configure the node to take in the Webhook's input parameters as well (specify them beforehand with bedroom count, bathroom count, max rent, and email). Also ensure that the location matches Charlottesville, Virginia. An easy way to do all of this is to click the "import cURL" option at the top of the node and import the cURL command that RentCast provides. See the node below:
+Now it's time to perform our API search. For this project, we can use RentCast's free rental property API found on their website: https://developers.rentcast.io/reference/introduction. Make sure to select a plan and save the API key once created. We can configure the node to take in the Webhook's input parameters as well (specify them beforehand with bedroom count, bathroom count, max rent, and email). Also ensure that the location matches Charlottesville, Virginia. An easy way to do all of this is to click the "import cURL" option at the top of the node and import the cURL command that RentCast provides. See the node below:
 
 ![API Config](assets/rentcast_img.png)
 
@@ -83,7 +83,7 @@ To account for multiple searches being outputted, add an "aggregate" node that t
 
 ### Step 5)  
 
-Now its time to call the LLM model in order to format our search. Add another node, this time a "Message a model" node through Google Gemini. This part will require some additional API enabling.  
+Now it's time to call the LLM model in order to format our search. Add another node, this time a "Message a model" node through Google Gemini. This part will require some additional API enabling.  
 
 The ones we need for this project are Gemini's API and Gmail's API. You can enable the specific API's that are needed here: https://console.cloud.google.com/  
 
@@ -116,7 +116,7 @@ Here is what the inside of the node should look like:
 ![Message A Model](assets/message_a_model_img.png)  
 
 ### Step 6)
-Lastly, we need our Gmail node to complete the process and send an email based on the search results! As with the "Message a Model" an API needs to be enabled for this and a set of credentials need to be created. Further, permissions need to be give to Gmail in order for it to authorize email sending. Just keep all of this in mind before proceeding and circling back and forth if you get errors. Fill in the relevant fields and for the actual body of the email, we simply want everything that Gemini outputs to us. And if you remember from before, that means referencing a previous node ("Message a Model"), like so:
+Lastly, we need our Gmail node to complete the process and send an email based on the search results! As with the "Message a Model" an API needs to be enabled for this and a set of credentials need to be created. Further, permissions need to be given to Gmail in order for it to authorize email sending. Just keep all of this in mind before proceeding and circling back and forth if you get errors. Fill in the relevant fields and for the actual body of the email, we simply want everything that Gemini outputs to us. And if you remember from before, that means referencing a previous node ("Message a Model"), like so:
 
     Here is a list of rentals that meet your search criteria:
     ---------------------------
@@ -160,14 +160,14 @@ Doing this allows the model to be accessible publicly instead of just locally! C
 
 You can access the workflow from here:  
 http://n8n-agent-yusuf.northcentralus.azurecontainer.io:5678
-(link may vary depending on your name/region upon azure deplorment)  
+(link may vary depending on your name/region upon azure deployment)  
 
 If you notice your workflow is not present, double check that you created a volume within Azure (not just Docker). This is a common issue but once its created, you'll see it!  
 
-Now it's time to create the form that users will fill out that the workflow will run through using the parametrs.
+Now it's time to create the form that users will fill out that the workflow will run through using the parameters.
 
 ---------------------------------------------------------------------------------------------------------------------------------
-### Step 8) Frontend Creation + Deplyment
+### Step 8) Frontend Creation + Deployment
 ### Conclusions/Final Thoughts
 
 As we have stated, workflows can be very complex or as simple as they need to. This project showed us that a small workflow can accomplish quite a lot and automate very important things for us. In regard to the environment overall, I encourage you to explore more with different nodes and see what kind of projects you can make! There are many different tools and automation techniques that can be done.
@@ -175,10 +175,10 @@ As we have stated, workflows can be very complex or as simple as they need to. T
 
 # 4) Design Decisions
 #### Why this concept?
-Out of the concepts learned, a simple n8n automation workflow made the most sense due to the rental search needing to be automated. . Other applications/pipelines could have worked, but they would have been more tedious and may have had more potential for errors.  
+Out of the concepts learned, a simple n8n automation workflow made the most sense due to the rental search needing to be automated. Other applications/pipelines could have worked, but they would have been more tedious and may have had more potential for errors.  
 
 #### Tradeoffs/Known Limitations
-Although this project is free, it comes with limitations in certain tasks that can be performed. One drawback was that there was no direct link to Zillow/Redfin for this project, therefore the rental searchability of different properities may be limited. Further, having cloud deployment is only able to be run for a certain amount of time before the $100 credit is used under the Azure for Students account. Once the credit is used, the cloud deployment is unable to continue. One last drawback is the restrictions of using Gemini for too many searches. Gemini only has a limited amount of alotted searches for their free plan, so once that is used up for the day, the model will no longer run and get stuck at the "Message a Model" node. Additionally, RentCast's API only allows for a certain amount of free uses, so this project may not be deployed on a large scale unless it is paid for.
+Although this project is free, it comes with limitations in certain tasks that can be performed. One drawback was that there was no direct link to Zillow/Redfin for this project, therefore the rental searchability of different properties may be limited. Further, having cloud deployment is only able to be run for a certain amount of time before the $100 credit is used under the Azure for Students account. Once the credit is used, the cloud deployment is unable to continue. One last drawback is the restrictions of using Gemini for too many searches. Gemini only has a limited amount of allotted searches for their free plan, so once that is used up for the day, the model will no longer run and get stuck at the "Message a Model" node. Additionally, RentCast's API only allows for a certain number of free uses, so this project may not be deployed on a large scale unless it is paid for.
 
 #### Security/Privacy
 Within the model, the credentials required were all stored securely in n8n's built in system. They were stored OUTSIDE of the workflow as separate entities that were used within the workflow. Secondly, for this specific project, input validation came with the previous nodes ensuring that the fields were completed and what were needed to proceed in the workflow. Lastly, no personal data was stored. When running the single command to produce the search, only generic public data is used.  
@@ -198,4 +198,4 @@ The workflow worked as planned and outputted all the necessary information reque
 
  
 # 6) What's Next?
-This model could be much more improved like any workflow, however, given the access to certain tools, we had to work with was available. The model could incorporate the use of more rental search APIs (if available) as well. Further, incorporating a better formatted email with an overall nicer organization would be ideal!
+This model could be much more improved like any workflow, however, given the access to certain tools, we had to work with what was available. The model could incorporate the use of more rental search APIs (if available) as well. Further, incorporating a better formatted email with an overall nicer organization would be ideal!

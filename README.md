@@ -130,15 +130,7 @@ Double check that your workflow looks like mine!
 
 ![Entire Workflow](assets/entire_workflow.png) 
 
-### Step 7) TESTING TIME!
-
-In order to test the workflow is running, save all work/edits done to the workflow and go to the initial "Webhook" node. In the node, you'll see a tab for "Test url" and "Production url", copy the production url for our curl command.  
-
-![Production URL](assets/production_url_img.png)
-
-Keep in mind, the link following POST may be different according to what Path you specifieid, for my purposes I stuck with a Path of "rend-criteria", therefore my link ends with that, but it may very well be different! This command should produce a "Success" result along with an email to your inbox with rental information. If you get an error stating something along the lines of "Problem with workflow" or "Error in workflow", check the Executions tab in your workflow to see exactly where the errors occured. With that, you can double check the configuration of the node that caused the error alongside the configurations provided.  
-
-### Step 8) Frontend!
+### Step 7) Frontend!
 
 Our model is now running locally but there is an extra step to go completely public, and that is to deploy it to the cloud. With a few simple commands, we can do this. Here is the one line needed to be pasted. Change the various instances to match your name and label preferences.
 
@@ -173,6 +165,8 @@ http://n8n-agent-yusuf.northcentralus.azurecontainer.io:5678
 If you notice your workflow is not present, double check that you created a volume within Azure (not just Docker). This is a common issue but once its created, you'll see it!  
 
 Now it's time to create the form that users will fill out that the workflow will run through using the parametrs.
+
+---------------------------------------------------------------------------------------------------------------------------------
 
 ### Conclusions/Final Thoughts
 

@@ -189,11 +189,11 @@ The workflow worked as planned and outputted all the necessary information reque
 
 2 Bed 2 Bath $1900 MAX rent sample output:  
 
-![1 bed Sample Output](assets/2bed_2bath_1900.png)  
+![2 bed Sample Output](assets/2bed_2bath_1900.png)  
 
 4 Bed 3 Bath $3500 MAX rent sample output:  
 
-![2 bed Sample Output](assets/4bed_3bath_3500_img.png)  
+![4 bed Sample Output](assets/4bed_3bath_3500_img.png)  
 
 
  

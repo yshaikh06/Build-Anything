@@ -124,7 +124,7 @@ Lastly, we need our Gmail node to complete the process and send an email based o
 
 Further, if you would like to have a "Subject" line that references the webhook inputs, follow the configuration below!  
 
-![Gmail Node](assets/gmail_node_img.png)  
+![Gmail Node](assets/gmail_node.png)  
 
 Double check that your workflow looks like mine!  
 

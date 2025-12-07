@@ -175,17 +175,17 @@ As we have stated, workflows can be very complex or as simple as they need to. T
 
 # 4) Design Decisions
 #### Why this concept?
-Out of the concepts learned, a simple n8n automation workflow made the most sense due to only requiring one command to accomplish the task at hand. Other applications/pipelines could have worked, but they would have been more tedious and may have had more potential for errors.  
+Out of the concepts learned, a simple n8n automation workflow made the most sense due to the rental search needing to be automated. . Other applications/pipelines could have worked, but they would have been more tedious and may have had more potential for errors.  
 
 #### Tradeoffs/Known Limitations
-Although this project is free, it comes with limitations in certain tasks that can be performed. One drawback was that there was no direct link to Zillow/Redfin for this project, therefore the entirety of the search came from Google Gemini which may produce invalid results. Certain advanced abilities are also limited within the free version of n8n which posed a slight issue within this model and referencing previous nodes, however, there were ways to work around it but they required a few extra steps and research. Further, having cloud deployment is only able to be run for a certain amount of time before the $100 credit is used under the Azure for Students account. Once the credit is used, the cloud deployment is unable to continue. One last drawback is the restrictions of using Gemini for too many searches. Gemini only has a limited amount of alotted searches for their free plan, so once that is used up for the day, the model will no longer run and get stuck at the "Message a Model" node.
+Although this project is free, it comes with limitations in certain tasks that can be performed. One drawback was that there was no direct link to Zillow/Redfin for this project, therefore the rental searchability of different properities may be limited. Further, having cloud deployment is only able to be run for a certain amount of time before the $100 credit is used under the Azure for Students account. Once the credit is used, the cloud deployment is unable to continue. One last drawback is the restrictions of using Gemini for too many searches. Gemini only has a limited amount of alotted searches for their free plan, so once that is used up for the day, the model will no longer run and get stuck at the "Message a Model" node. Additionally, RentCast's API only allows for a certain amount of free uses, so this project may not be deployed on a large scale unless it is paid for.
 
 #### Security/Privacy
 Within the model, the credentials required were all stored securely in n8n's built in system. They were stored OUTSIDE of the workflow as separate entities that were used within the workflow. Secondly, for this specific project, input validation came with the previous nodes ensuring that the fields were completed and what were needed to proceed in the workflow. Lastly, no personal data was stored. When running the single command to produce the search, only generic public data is used.  
 
 
 # 5) Results and Evaluation
-The workflow worked as planned and outputted all the necessary information requested! It took a little while to figure out how to properly restrict emails being sent based on an actual output or not, but in the end, the model will NOT send an email if there are missing inputs. 
+The workflow worked as planned and outputted all the necessary information requested! Connecting the frontend to the backend was difficult in that the backend was operating on a HTTP link and when deployed, the frontend would not connect to the backend becuase it required an HTTPS backend. To work around this, I had to create an Azure function app to convert the backend to HTTPS temporarily so the frontend and backend could communicate with each other.
 
 2 Bed 2 Bath $1900 MAX rent sample output:  
 
@@ -198,4 +198,4 @@ The workflow worked as planned and outputted all the necessary information reque
 
  
 # 6) What's Next?
-This model could be much more improved like any workflow, however, given the access to certain tools, we had to work with was available. The model could rely less heavily on an LLM and more on other third party sources using API keys (as noted earlier). Further, incorporating a better formatted email with an overall nicer organization would be ideal!
+This model could be much more improved like any workflow, however, given the access to certain tools, we had to work with was available. The model could incorporate the use of more rental search APIs (if available) as well. Further, incorporating a better formatted email with an overall nicer organization would be ideal!

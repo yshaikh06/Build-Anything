@@ -130,7 +130,7 @@ Double check that your workflow looks like mine!
 
 ![Entire Workflow](assets/entire_workflow.png) 
 
-### Step 7) Frontend!
+### Step 7) Cloud Deployment (of our backend, frontend creation + deployment afterwards)
 
 Our model is now running locally but there is an extra step to go completely public, and that is to deploy it to the cloud. With a few simple commands, we can do this. Here is the one line needed to be pasted. Change the various instances to match your name and label preferences.
 
@@ -167,7 +167,7 @@ If you notice your workflow is not present, double check that you created a volu
 Now it's time to create the form that users will fill out that the workflow will run through using the parametrs.
 
 ---------------------------------------------------------------------------------------------------------------------------------
-
+### Step 8) Frontend Creation + Deplyment
 ### Conclusions/Final Thoughts
 
 As we have stated, workflows can be very complex or as simple as they need to. This project showed us that a small workflow can accomplish quite a lot and automate very important things for us. In regard to the environment overall, I encourage you to explore more with different nodes and see what kind of projects you can make! There are many different tools and automation techniques that can be done.

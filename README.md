@@ -193,7 +193,7 @@ The workflow worked as planned and outputted all the necessary information reque
 
 4 Bed 3 Bath $3500 MAX rent sample output:  
 
-![4 bed Sample Output](assets/4bed_3bath_3500_img.png)  
+![4 bed Sample Output](assets/4bed_3bath_3500.png)  
 
 
  

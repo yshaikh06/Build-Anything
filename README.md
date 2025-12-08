@@ -173,7 +173,9 @@ For our frontend, we need an index.html, a styles.css, and script.js (to referen
 Below is a sample of what those files could look like (copy + paste friendly). Quickly open the index.html file and check that it shows what YOU would like. Change anything if you'd like and same thing with the styles.css.  
 
 index.html:
-```<!DOCTYPE html>
+
+```
+<!DOCTYPE html>
     <html lang="en">
     <head>
   <meta charset="UTF-8" />
@@ -210,6 +212,119 @@ index.html:
 </body>
 </html>
 ```
+
+style.css:
+```
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  width: 350px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 12px;
+  display: block;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 20px;
+  background: #0066ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #0052cc;
+}
+
+#status {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 14px;
+}
+```
+script.js (Will vary depending on named apps)
+```
+document.getElementById("rentalForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const statusText = document.getElementById("status");
+  statusText.textContent = "Submitting...";
+
+  const data = {
+    bedrooms: document.getElementById("bedrooms").value,
+    bathrooms: document.getElementById("bathrooms").value,
+    max_rent: document.getElementById("max_rent").value,
+    email: document.getElementById("email").value
+  };
+
+  try {
+    const response = await fetch("https://systemsfinal-proxy-grhjg2bshpgaexar.northcentralus-01.azurewebsites.net/api/submitform", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      statusText.textContent = "Form submitted! You will receive an email soon.";
+    } else {
+      statusText.textContent = "Error submitting form.";
+    }
+  } catch (err) {
+    statusText.textContent = "Network error.";
+  }
+});
+```
+Now that we have those templates declared, its time to actually build the frontend using them. In Azure, create a new Storage Account and enable a static website with index.html as the document name and error document path like so:
+
+![Static Website](assets/static_website.png)  
+
+You can double check your static website works by simply copying and pasting the URL provided. Once this is done, within your storage container, under storage containers, in the containers section, upload your index.html and style.css files in the new container titled "$web" that was automatically created by Azure.  Time for the fun part! Go back to the homepage and create a Function App (Consumption plan, runtime stack Node.js). This will allow us to access the backend from the frontend even though the backend runs only HTTP and the frontend only references HTTPS. Create a function and name it something like "submitform". Configure it to be a HTTP Trigger and authorization to **Annonymous**. Next get the function URL (middle of the tabs) and save that link! it goes into our script.js in this line:  
+
+```
+ try {
+    const response = await fetch("https://systemsfinal-proxy-grhjg2bshpgaexar.northcentralus-01.azurewebsites.net/api/submitform", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    });
+```
+
+Now copy the entirety of your script.js and upload it to the code/test tab in the function app. To verify everything is working, you can also drop a few parameters into the Test/Run tab of the HTTP trigger to see if it properly handles and outputs "ok".  
+
+Creating the function app is a required component here as is acts as an HTTPS intermediary between our frontend and backend so they can communicate properly. Without this, our frontend would simply block any requests made to our backend.
 
 ### Conclusions/Final Thoughts
 

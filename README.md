@@ -164,10 +164,53 @@ http://n8n-agent-yusuf.northcentralus.azurecontainer.io:5678
 
 If you notice your workflow is not present, double check that you created a volume within Azure (not just Docker). This is a common issue but once its created, you'll see it!  
 
-Now it's time to create the form that users will fill out that the workflow will run through using the parameters.
+Now it's time to create the form that users will fill out that the workflow will run through using the parameters.  
 
----------------------------------------------------------------------------------------------------------------------------------
-### Step 8) Frontend Creation + Deployment
+### Step 8) Frontend Creation + Deployment  
+
+For our frontend, we need an index.html, a styles.css, and script.js (to reference our deployed n8n model).
+
+Below is a sample of what those files could look like (copy + paste friendly). Quickly open the index.html file and check that it shows what YOU would like. Change anything if you'd like and same thing with the styles.css.  
+
+index.html:
+```<!DOCTYPE html>
+    <html lang="en">
+    <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rental Finder</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="container">
+    <h1>Find Rental Listings</h1>
+
+    <form id="rentalForm">
+
+      <label>Bedrooms</label>
+      <input type="number" id="bedrooms" name="bedrooms" min="0" required />
+
+      <label>Bathrooms</label>
+      <input type="number" id="bathrooms" name="bathrooms" min="0" required />
+
+      <label>Max Rent ($)</label>
+      <input type="number" id="max_rent" name="max_rent" min="0" required />
+
+      <label>Email (Where results will be sent)</label>
+      <input type="email" id="email" name="email" placeholder="you@example.com" required />
+
+      <button type="submit">Search Rentals</button>
+    </form>
+
+    <p id="status"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
 ### Conclusions/Final Thoughts
 
 As we have stated, workflows can be very complex or as simple as they need to. This project showed us that a small workflow can accomplish quite a lot and automate very important things for us. In regard to the environment overall, I encourage you to explore more with different nodes and see what kind of projects you can make! There are many different tools and automation techniques that can be done.
